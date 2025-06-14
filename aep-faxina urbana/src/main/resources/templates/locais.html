@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Locais de Descarte</title>
+    <link th:href="@{/css/style-locais.css}" rel="stylesheet">
+</head>
+<body>
+  <h1 class="title">Pesquisar Pontos</h1>
+
+    <div class="container">
+        <div class="box">
+            <div class="dropdown">
+                <div class="select" id="materialSelect">
+                    <span class="selected">Selecionar material</span>
+                    <div class="caret"></div>
+                </div>
+                <ul class="menu">
+                    <li data-value="esponja">Esponja de cozinha</li>
+                    <li data-value="oleo">Óleo de Fritura pós-consumo</li>
+                    <li data-value="eletronicos">Baterias, Pilhas ou Sucatas Eletrônicas</li>
+                    <li data-value="lampadas">Lâmpadas</li>
+                    <li data-value="vidros">Resíduos de Vidros</li>
+                    <li data-value="ecolix">Ecolix - (plástico, metal, vidro e papel)</li>
+                </ul>
+            </div>
+            <div id="resultados">
+                <h3>Resultados encontrados:</h3>
+                <div class="cards-container"></div>
+            </div>
+        </div>
+    </div>
+
+  <script th:src="@{/js/locais.js}"></script>
+</body>
+</html>
