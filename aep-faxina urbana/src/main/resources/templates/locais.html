@@ -7,31 +7,64 @@
     <link th:href="@{/css/style-locais.css}" rel="stylesheet">
 </head>
 <body>
-  <h1 class="title">Pesquisar Pontos</h1>
+<h1 class="title">Pesquisar Pontos</h1>
 
-    <div class="container">
-        <div class="box">
-            <div class="dropdown">
-                <div class="select" id="materialSelect">
-                    <span class="selected">Selecionar material</span>
-                    <div class="caret"></div>
-                </div>
-                <ul class="menu">
-                    <li data-value="esponja">Esponja de cozinha</li>
-                    <li data-value="oleo">Óleo de Fritura pós-consumo</li>
-                    <li data-value="eletronicos">Baterias, Pilhas ou Sucatas Eletrônicas</li>
-                    <li data-value="lampadas">Lâmpadas</li>
-                    <li data-value="vidros">Resíduos de Vidros</li>
-                    <li data-value="ecolix">Ecolix - (plástico, metal, vidro e papel)</li>
-                </ul>
+<div class="container">
+    <div class="box">
+        <div class="dropdown">
+            <div class="select" id="materialSelect">
+                <span class="selected">Selecionar material</span>
+                <div class="caret"></div>
             </div>
-            <div id="resultados">
-                <h3>Resultados encontrados:</h3>
-                <div class="cards-container"></div>
+            <ul class="menu">
+                <li th:each="material : ${materiaisUnicos}"
+                    th:text="${material}"
+                    th:data-value="${material}"></li>
+            </ul>
+        </div>
+
+        <div id="resultados">
+            <h3>Resultados encontrados:</h3>
+            <div class="cards-container">
+                <div class="card" th:each="local : ${locais}">
+                    <div class="card-icon">📍</div>
+                    <div class="card-text" th:text="${local.endereco}"></div>
+                </div>
             </div>
         </div>
     </div>
+</div>
 
-  <script th:src="@{/js/locais.js}"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    const dropdowns = document.querySelectorAll('.dropdown');
+
+    dropdowns.forEach(dropdown => {
+        const select = dropdown.querySelector('.select');
+        const caret = dropdown.querySelector('.caret');
+        const menu = dropdown.querySelector('.menu');
+        const options = dropdown.querySelectorAll('.menu li');
+        const selected = dropdown.querySelector('.selected');
+
+        select.addEventListener('click', () => {
+            select.classList.toggle('select-clicked');
+            caret.classList.toggle('caret-rotate');
+            menu.classList.toggle('menu-open');
+        });
+
+        options.forEach(option => {
+            option.addEventListener('click', () => {
+                selected.innerText = option.innerText;
+                select.classList.remove('select-clicked');
+                caret.classList.remove('caret-rotate');
+                menu.classList.remove('menu-open');
+
+                const material = option.getAttribute('data-value');
+                window.location.href = '/locais?material=' + encodeURIComponent(material);
+            });
+        });
+    });
+    /*]]>*/
+</script>
 </body>
 </html>
