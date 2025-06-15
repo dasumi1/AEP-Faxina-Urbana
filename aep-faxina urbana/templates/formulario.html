@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Denúncia Anônima - Faxina Urbana</title>
+    <link rel="stylesheet" href="/css/style2.css">
+</head>
+<body>
+<div class="container">
+    <div class="form-box">
+        <h2 class="title">Denúncia Anônima</h2>
+        <div th:if="${sucesso}" class="alert alert-success" role="alert">
+            <span th:text="${sucesso}"></span>
+        </div>
+        <div th:if="${erro}" class="alert alert-danger" role="alert">
+            <span th:text="${erro}"></span>
+        </div>
+        <form th:action="@{/denuncias/enviar}" method="post" enctype="multipart/form-data">
+            <input type="text" name="rua" placeholder="Rua" required>
+            <div class="input-row">
+                <input type="text" name="numero" placeholder="Número" required>
+                <input type="text" name="bairro" placeholder="Bairro" required>
+            </div>
+
+            <textarea name="situacao" placeholder="Descreva o estado do local" required></textarea>
+
+            <label for="input-file" id="drop-area">
+                <input type="file" name="imagem" accept="image/*" id="input-file" hidden>
+                <div id="img-view">
+                    <img src="/images/cloud-upload-icon.png">
+                    <p>Clique aqui para adicionar<br>a imagem do local</p>
+                </div>
+            </label>
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+</div>
+<script src="/js/script.js"></script>
+</body>
+</html>
